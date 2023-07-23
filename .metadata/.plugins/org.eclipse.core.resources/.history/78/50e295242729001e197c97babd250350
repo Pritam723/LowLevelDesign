@@ -1,0 +1,53 @@
+package Model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Board {
+	public int size;
+	public PlayingPiece[][] mtx;
+	
+	public Board(int size) {
+		this.size = size;
+		this.mtx = new PlayingPiece[size][size];
+	}
+	
+	public boolean addPiece(int row, int col, PlayingPiece piece) {
+		if(mtx[row][col] != null) {
+			return false;
+		}else {
+			mtx[row][col] = piece;
+			return true;
+		}
+	}
+
+	public List<Pair> getFreeSpaces() {
+		// TODO Auto-generated method stub
+		List<Pair> freeSpaces = new ArrayList<Pair>();
+
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				if(mtx[i][j] == null) {
+					freeSpaces.add(new Pair(i, j));
+				}
+			}
+		}
+		return freeSpaces;
+	}
+
+	public void printBoard() {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				if(mtx[i][j] == null) {
+					System.out.print(" ");
+				}else {
+					System.out.println(mtx[i][j].getSymbol());
+				}
+			}
+			System.out.println();
+		}
+		
+	}
+	
+}

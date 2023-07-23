@@ -1,0 +1,21 @@
+package Model;
+
+public class Board {
+	public int size;
+	public PlayingPiece[][] mtx;
+	
+	public Board(int size) {
+		this.size = size;
+		this.mtx = new PlayingPiece[size][size];
+	}
+	
+	public boolean addPiece(int row, int col, PlayingPiece piece) {
+		if(mtx[row][col] != null) {
+			return false;
+		}else {
+			mtx[row][col] = piece;
+			return true;
+		}
+	}
+	
+}

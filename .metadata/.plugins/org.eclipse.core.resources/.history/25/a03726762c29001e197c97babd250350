@@ -1,0 +1,11 @@
+package MainGame;
+
+public class EntryPoint {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		GameTTT myGame = new GameTTT();
+		myGame.startGame();	
+	}
+
+}

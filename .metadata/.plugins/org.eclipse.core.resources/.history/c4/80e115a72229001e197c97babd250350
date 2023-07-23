@@ -1,0 +1,19 @@
+package MainGame;
+
+import java.util.Deque;
+import java.util.LinkedList;
+
+import Model.Player;
+import Model.Board;
+
+public class GameTTT {
+	Deque<Player> players;
+	Board gameBoard;
+	
+	public GameTTT() {
+		initializeGame();
+	}
+	
+	private void initializeGame() {
+		players = new LinkedList<>();	}
+}

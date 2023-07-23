@@ -1,0 +1,139 @@
+package Model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Board {
+	public int size;
+	public PlayingPiece[][] mtx;
+	
+	public Board(int size) {
+		this.size = size;
+		this.mtx = new PlayingPiece[size][size];
+	}
+	
+	public boolean addPiece(int row, int col, PlayingPiece piece) {
+		if(mtx[row][col] != null) {
+			return false;
+		}else {
+			mtx[row][col] = piece;
+			return true;
+		}
+	}
+
+	public List<Pair> getFreeSpaces() {
+		// TODO Auto-generated method stub
+		List<Pair> freeSpaces = new ArrayList<Pair>();
+
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				if(mtx[i][j] == null) {
+					freeSpaces.add(new Pair(i, j));
+				}
+			}
+		}
+		return freeSpaces;
+	}
+
+	public void printBoard() {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				if(mtx[i][j] == null) {
+					System.out.print(" ");
+				}else {
+					System.out.print(mtx[i][j].getSymbol());
+				}
+				System.out.print("|");
+			}
+			System.out.println();
+		}
+		
+	}
+
+	public boolean isCellEmpty(int row, int col) {
+		if(mtx[row][col] == null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	public void putSymbol(int row, int col, Player playerTurn) {
+		// TODO Auto-generated method stub
+		mtx[row][col] = playerTurn.piece;
+	}
+
+	public boolean isWinner(int row, int col) {
+		// TODO Auto-generated method stub
+		boolean flag = false;
+		
+		String symbolToCheck = mtx[row][col].getSymbol();
+		// Checking the Entire Row
+		for(int j = 0; j < size; j++) {
+			flag = true;
+			if(mtx[row][j] == null || !mtx[row][j].getSymbol().equals(symbolToCheck)) {
+				flag = flag && false;
+			}
+		}
+		if(flag == true) return true;
+		
+		// Checking the Entire Column.
+		for(int i = 0; i < size; i++) {
+			flag = true;
+			if(mtx[i][col] == null || !mtx[i][col].getSymbol().equals(symbolToCheck)) {
+				flag = flag && false;
+			}
+		}
+		
+		if(flag == true) return true;
+		
+		// Checking the Diagonals. Now we need to check 2 diagonals.
+		// So, first figure out start of the 2 diagonals.
+		
+		int r = row;
+		int c = col;
+		while(r > 0 && c > 0) {
+			r--;
+			c--;
+		}
+		// So we will get start of one diagonal. Check with it first.
+		
+		while(r < size && c < size) {
+			flag = true;
+			if(mtx[r][c] == null || !mtx[r][c].getSymbol().equals(symbolToCheck)) {
+				flag = flag && false;
+			}
+			r++;
+			c++;
+		}
+		
+		if(flag == true) return true;
+		
+		// Now check the other Diagonal.
+		r = row;
+		c = col;
+		
+		while(r > 0 && c < size) {
+			r--;
+			c++;
+		}
+		
+		// So we will get start of other diagonal. Check with it now.
+		
+		while(r < size && c >= 0) {
+			flag = true;
+
+			if(mtx[r][c] == null || !mtx[r][c].getSymbol().equals(symbolToCheck)) {
+				flag = flag && false;
+			}
+			r++;
+			c--;
+		}
+		
+		if(flag == true) return true;
+		
+		return false;
+	}
+	
+}

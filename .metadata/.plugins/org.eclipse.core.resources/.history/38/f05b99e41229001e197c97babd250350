@@ -1,0 +1,6 @@
+package Model;
+
+private enum PieceType {
+	X,
+	O
+}
